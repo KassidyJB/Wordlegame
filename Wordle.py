@@ -58,24 +58,12 @@ def generate_word():
 
 #Get User Guess Function. Prompts user for a guess, checks to make sure it is a 5 letter word
 
-def user(correct_pos, incorrect_pos, word, tries):
+def user():
     guess = input(f"Enter a five letter word.").lower()
-    if len(guess)!=1 or not guess.isalpha():
-        print('''You've entered an invalid guess or more than
-          one letter''')
-    user(correct_pos,incorrect_pos, word, tries)
-    if len(guess) in correct_pos or len(guess) in incorrect_pos:
-        print("You've already guessed this letter")
-    elif guess in word:
-        print("This letter is correct!")
-        correct_pos.append(guess)
-    elif guess not in word:
-        print("This guess is inccorect.")
-        incorrect_pos.append(guess)
-        tries +=1
-    else:
-        print("This guess is not acceptable")
-    return tries
+    if len(guess)!=5 or not guess.isalpha():
+        print(f'''\nYou've entered an invalid guess or more than
+          one letter\n''')
+    user()
 
 
 
@@ -85,6 +73,14 @@ def user(correct_pos, incorrect_pos, word, tries):
 # if it is in the correct position or not. Then it will print out the guess word again,
 #  with each letter colored to reflect whether it was wrong, correct letter but
 #  wrong position, or completely correct.
+
+def compare(guess,word,correct_pos, incorrect_pos):
+  for let in guess:
+    if let in guess == let in word:
+      progress += let
+    else:
+      progress += "_"
+  return progress
 
 
 
