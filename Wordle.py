@@ -1,4 +1,5 @@
-print('\033[46m'+'Hello!'+'\033[45m')
+import random
+#print('\033[46m'+'Hello!'+'\033[45m')
 
 '''Wordle Game plan
 
@@ -31,6 +32,7 @@ Green = ''
 correct_pos = []
 incorrect_pos = []
 no_list = []
+game = True
 
 
 
@@ -39,7 +41,8 @@ print(Red + '\033[0m')
 
 #Create your Welcome message that explains how the game works
 
-name = 
+name = input(f"\nWhat is your name?\n")
+print(f"Welcome to Wordle, {name}!\n")
 
 
 
@@ -55,8 +58,24 @@ def generate_word():
 
 #Get User Guess Function. Prompts user for a guess, checks to make sure it is a 5 letter word
 
-def user():
-    guess = input(f"Enter a five letter word.")
+def user(correct_pos, incorrect_pos, word, tries):
+    guess = input(f"Enter a five letter word.").lower()
+    if len(guess)!=1 or not guess.isalpha():
+        print('''You've entered an invalid guess or more than
+          one letter''')
+    user(correct_pos,incorrect_pos, word, tries)
+    if len(guess) in correct_pos or len(guess) in incorrect_pos:
+        print("You've already guessed this letter")
+    elif guess in word:
+        print("This letter is correct!")
+        correct_pos.append(guess)
+    elif guess not in word:
+        print("This guess is inccorect.")
+        incorrect_pos.append(guess)
+        tries +=1
+    else:
+        print("This guess is not acceptable")
+    return tries
 
 
 
@@ -77,10 +96,10 @@ def user():
 # 2. In the word but wrong position or 
 # 3. In the word and correct position
 
-def print_word(word, correct):
+def print_word(word, correct_pos):
   progress = ''
   for let in word:
-    if let in correct:
+    if let in correct_pos:
       progress += let
     else:
       progress += "_"
